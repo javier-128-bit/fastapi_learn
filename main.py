@@ -23,13 +23,13 @@ class InputType(BaseModel):
     notes: Optional[str] = None
     method: Method
 
-# Query Parameter
-@application.get("/transaction")
-def get_transaction(tipe: str, amount: int):
-    return {
-        "tipe": tipe,
-        "amount": amount
-    }
+# # Query Parameter
+# @application.get("/transaction")
+# def get_transaction(tipe: str, amount: int):
+#     return {
+#         "tipe": tipe,
+#         "amount": amount
+#     }
 
 # Path Parameter
 @application.get("/transaction/{tipe}")
@@ -45,4 +45,20 @@ def insert_transaction(data: InputType):
     return {
         "message": "berhasil ditambahkan",
         "data": data
+    }
+
+# Filtering
+@application.get("/transaction")
+def get_transaction(tipe:Optional[Tipe]=None):
+    if tipe is not None:
+        filtered=[]
+        for t in data_transaction:
+            t=InputType.parse_obj(t)
+            if t.tipe==tipe:
+                filtered.append(t)
+    else:
+        filtered=data_transaction
+    return{
+        "message": "berhasil diambil",
+        "data": filtered
     }
