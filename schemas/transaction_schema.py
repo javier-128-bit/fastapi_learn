@@ -17,3 +17,4 @@ class TransactionCreate(BaseModel):
     amount: int
     notes: Optional[str] = None
     method: Method
+

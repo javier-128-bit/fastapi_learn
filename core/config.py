@@ -9,3 +9,4 @@ MONGO_URL = os.getenv("CLIENT_MONGO")
 client = pymongo.MongoClient(MONGO_URL)
 db = client["learning_fastapi"]
 transaction_collection = db["transaction"]
+user_collection=db["user"]
