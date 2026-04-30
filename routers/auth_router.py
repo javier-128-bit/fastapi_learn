@@ -13,5 +13,5 @@ def register(data:Register):
 
 @routerAuth.post("/login")
 def login (data:Login):
-    login_user_service(data.dict())
-    return {"message": "berhasil login"}
+    return login_user_service(data.dict())
+    
