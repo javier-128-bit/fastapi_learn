@@ -1,4 +1,6 @@
 venv/
 __pycache__/
-requirements.txt
-.env/
+*.pyc
+.env
+.idea/
+.vscode/

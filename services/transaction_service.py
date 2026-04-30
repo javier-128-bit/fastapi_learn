@@ -37,16 +37,27 @@ def insert_transaction_service(data,token):
     verify_token(token)
     return create_transaction(data)
 
-def get_transaction_service(token,tipe=None):
+def get_transaction_service(token,tipe=None,page=1, limit=10):
     verify_token(token)
     query = {}
 
     if tipe:
         query["tipe"] = tipe
 
-    data = get_transactions(query)
+    skip = (page - 1) * limit
+
+    data = get_transactions(
+        filter_query=query,
+        skip=skip,
+        limit=limit
+    )
+
 
     for item in data:
         item["_id"] = str(item["_id"])
 
-    return data
+    return {
+        "page": page,
+        "limit": limit,
+        "data": data
+    }

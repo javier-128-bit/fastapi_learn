@@ -1,4 +1,4 @@
-from fastapi import APIRouter,Header, HTTPException,Depends
+from fastapi import APIRouter,Header,Depends,Query
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from typing import Optional
 from schemas.transaction_schema import TransactionCreate, Tipe
@@ -22,11 +22,14 @@ def create(data: TransactionCreate, credentials: HTTPAuthorizationCredentials = 
 @routerTransaction.get("/")
 def get_all(
     tipe: Optional[Tipe] = None,
+    page: int = Query(1, ge=1),
+    limit: int = Query(10, ge=1, le=100),
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
     token = credentials.credentials
 
-    data = get_transaction_service(token, tipe)
+    data = get_transaction_service(token, tipe,page=page,
+        limit=limit)
 
     return {
         "message": "berhasil diambil",
